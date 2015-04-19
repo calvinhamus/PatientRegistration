@@ -56,8 +56,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
              <li><a href="../index.html">Overview</a></li>
-              <li><a href="assign.html">Assign Nurse</a></li>
-             <li class="active"><a href="#">Appointment Details<span class="sr-only">(current)</span></a></li>
+             <li class="active"><a href="#">Assign Nurse<span class="sr-only">(current)</span></a></li>
+           <li><a href="appointmentdetails.html">Appointment Details</a></li>
             <li><a href="patients.html">List Patients</a></li>
 			 <li><a href="appointments.html">List Appointments</a></li>
   <!-- END LEFT NAV-->       
@@ -67,12 +67,26 @@
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="assignLocationDrop" data-toggle="dropdown" aria-expanded="true">
+                  Choose Location
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="locationDropDown">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
 		  <div class="dropdown">
 			  <button class="btn btn-default dropdown-toggle" type="button" id="assignNurseDrop" data-toggle="dropdown" aria-expanded="true">
 				Choose Nurse To Assign
 				<span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			  <ul class="dropdown-menu" role="menu" aria-labelledby="nurseDropDown">
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="#"  onclick="getDocs('1')" >Nurse1</a></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="#"  onclick="getDocs('2')" >Another action</a></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="#"  onclick="getDocs('3')" >Something else here</a></li>
@@ -87,7 +101,7 @@
 					Choose Doctor To Assign Nurse To
 					<span class="caret"></span>
 				  </button>
-				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="doctorDropDown">
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
@@ -95,20 +109,7 @@
 				  </ul>
 			</div>
         </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-             <div class="dropdown">
-				  <button class="btn btn-default dropdown-toggle" type="button" id="assignLocationDrop" data-toggle="dropdown" aria-expanded="true">
-					Choose Location 
-					<span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-				  </ul>
-			</div>
-            </div>
+
             
           </div>
 
