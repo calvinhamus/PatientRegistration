@@ -23,7 +23,7 @@ $.ajax({
 }).done(function(data) {
 var headers=[ ""], rows={}
      headers.push("Status");
-   $.each(data.aaData,function(i,obj)
+   $.each(data.data,function(i,obj)
                    {
                     alert(obj.value+":"+obj.text);
                     var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getDoctorsByFacility(obj.id)'>"+obj.data+"</a></li>"
@@ -46,10 +46,10 @@ $.ajax({
 }).done(function(data) {
 var headers=[ ""], rows={}
      headers.push("Status");
-   $.each(data.aaData,function(i,obj)
+   $.each(data.data,function(i,obj)
                    {
                     alert(obj.value+":"+obj.text);
-                    var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getNurses()'>"+obj.data+"</a></li>"
+                    var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getNurses()'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
                    alert(div_data);
                    $(div_data).appendTo('#doctorDropDown');
                    });
@@ -69,10 +69,10 @@ function getNurses(data)
  }).done(function(data) {
  var headers=[ ""], rows={}
       headers.push("Status");
-    $.each(data.aaData,function(i,obj)
+    $.each(data.data,function(i,obj)
                     {
                      alert(obj.value+":"+obj.text);
-                     var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='assignNurseToDoc()'>"+obj.data+"</a></li>"
+                     var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='assignNurseToDoc()'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
                     alert(div_data);
                     $(div_data).appendTo('#nurseDropDown');
                     });
@@ -121,10 +121,10 @@ function getNurses(data)
   }).done(function(data) {
   var headers=[ ""], rows={}
        headers.push("Status");
-     $.each(data.aaData,function(i,obj)
+     $.each(data.data,function(i,obj)
                      {
                       alert(obj.value+":"+obj.text);
-                      var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1'>"+obj.data+"</a></li>"
+                      var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
                      alert(div_data);
                      $(div_data).appendTo('#nurseDropDown');
                      });
@@ -145,10 +145,10 @@ function getNurses(data)
     }).done(function(data) {
     var headers=[ ""], rows={}
          headers.push("Status");
-       $.each(data.aaData,function(i,obj)
+       $.each(data.data,function(i,obj)
                        {
                         alert(obj.value+":"+obj.text);
-                        var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' >"+obj.data+"</a></li>"
+                        var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' >"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
                        alert(div_data);
                        $(div_data).appendTo('#nurseDropDown');
                        });
