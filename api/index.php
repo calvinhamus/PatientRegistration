@@ -6,17 +6,21 @@ $app = new \Slim\Slim();
 $app->response()->headers->set('Content-Type', 'application/json');
 
 /**
- * Gets all doctors or just doctors at the given facility.
+ * Gets all doctors, one doctor (if id provided), or just doctors at the given facility.
  *
  * Usage: GET /doctors
+ *        GET /doctors/1
  *        GET /doctors?facilityId=1
  */
-$app->get('/doctors', function() use ($app) {
+$app->get('/doctors(/:id)', function($id = 0) use ($app) {
     try {
         $dao = new \Prams\Dao();
         $req = $app->request();
         $facilityId = $req->get('facilityId');
-        if ($facilityId) {
+
+        if ($id > 0) {
+            $doctors = $dao->getDoctorById($id);
+        } else if ($facilityId) {
             $doctors = $dao->getDoctorsByFacilityId($facilityId);
         } else {
             $doctors = $dao->getAllDoctors();
@@ -42,14 +46,21 @@ $app->get('/doctors', function() use ($app) {
 });
 
 /**
- * Gets all facilities.
+ * Gets all facilities or one facility (if id provided).
  *
  * Usage: GET /facilities
+ *        GET /facilities/1
  */
-$app->get('/facilities', function() use ($app) {
+$app->get('/facilities(/:id)', function($id = 0) use ($app) {
     try {
         $dao = new \Prams\Dao();
-        $facilities = $dao->getAllFacilities();
+
+        if ($id > 0) {
+            $facilities = $dao->getFacilityById($id);
+        } else {
+            $facilities = $dao->getAllFacilities();
+        }
+
         if ($facilities) {
             $code = 200;
             $message = '';
@@ -70,14 +81,21 @@ $app->get('/facilities', function() use ($app) {
 });
 
 /**
- * Gets all nurses.
+ * Gets all nurses or one nurse (if id provided).
  *
  * Usage: GET /nurses
+ *        GET /nurses/1
  */
-$app->get('/nurses', function() use ($app) {
+$app->get('/nurses(/:id)', function($id = 0) use ($app) {
     try {
         $dao = new \Prams\Dao();
-        $nurses = $dao->getAllNurses();
+
+        if ($id > 0) {
+            $nurses = $dao->getNurseById($id);
+        } else {
+            $nurses = $dao->getAllNurses();
+        }
+
         if ($nurses) {
             $code = 200;
             $message = '';
@@ -98,17 +116,21 @@ $app->get('/nurses', function() use ($app) {
 });
 
 /**
- * Gets all patients or just patients with a particular primary care doctor.
+ * Gets all patients, one patient (if id provided), or just patients with a particular primary care doctor.
  *
  * Usage: GET /patients
+ *        GET /patients/1
  *        GET /patients?primCareDrId=1
  */
-$app->get('/patients', function() use ($app) {
+$app->get('/patients(/:id)', function($id = 0) use ($app) {
     try {
         $dao = new \Prams\Dao();
         $req = $app->request();
         $primCareDrId = $req->get('primCareDrId');
-        if ($primCareDrId) {
+
+        if ($id > 0) {
+            $patients = $dao->getPatientById($id);
+        } else if ($primCareDrId) {
             $patients = $dao->getPatientsByPrimaryCareDoctor($primCareDrId);
         } else {
             $patients = $dao->getAllPatients();

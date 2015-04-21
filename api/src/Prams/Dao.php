@@ -20,6 +20,19 @@ class Dao {
         return $rows;
     }
 
+    public function getDoctorById($personId) {
+        $sql = "SELECT d.*, p.* FROM Doctor d
+                INNER JOIN Person p USING (PersonId)
+                WHERE p.PersonId = :id
+                LIMIT 1";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
+
     public function getDoctorsByFacilityId($facilityId) {
         $sql = "SELECT d.*, p.* FROM Doctor d
                 INNER JOIN Person p USING (PersonId)
@@ -44,6 +57,18 @@ class Dao {
         return $rows;
     }
 
+    public function getFacilityById($facilityId) {
+        $sql = "SELECT o.*, ot.OrganizationType FROM Organization o
+                INNER JOIN OrganizationType ot USING (TypeId)
+                WHERE o.OrganizationId = :orgId";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
+
     public function getAllNurses() {
         $sql = "SELECT n.*, p.* FROM Nurse n
                 INNER JOIN Person p USING (PersonId)
@@ -55,10 +80,35 @@ class Dao {
         return $rows;
     }
 
+    public function getNurseById($personId) {
+        $sql = "SELECT n.*, p.* FROM Nurse n
+                INNER JOIN Person p USING (PersonId)
+                WHERE p.PersonId = :id
+                LIMIT 1";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
+
     public function getAllPatients() {
         $sql = "SELECT p.* FROM Person p
                 ORDER BY p.LastName, p.FirstName";
         $sth = $this->_dbh->prepare($sql);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
+
+    public function getPatientById($personId) {
+        $sql = "SELECT p.* FROM Person p
+                WHERE p.PersonId = :id
+                LIMIT 1";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
         $sth->execute();
 
         $rows = $sth->fetchAll(\PDO::FETCH_OBJ);

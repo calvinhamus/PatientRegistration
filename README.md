@@ -12,13 +12,25 @@ The API contains the following endpoints.
 
 Gets all doctors or just doctors at the given facility.
 
+### GET /api/doctors/:id
+
+Gets the doctor with the given id.
+
 ### GET /api/facilities
 
 Gets all facilities.
 
+### GET /api/facilities/:id
+
+Gets the facility with the given id.
+
 ### GET /api/nurses
 
 Gets all nurses.
+
+### GET /api/nurses/:id
+
+Gets the nurse with the given id.
 
 ### GET /api/patients
 
@@ -27,3 +39,7 @@ Gets all nurses.
 * primCareDrId (optional)
 
 Gets all patients or just patients with a particular primary care doctor.
+
+### GET /api/patients/:id
+
+Gets the patient with the given id.
