@@ -98,14 +98,22 @@ $app->get('/nurses', function() use ($app) {
 });
 
 /**
- * Gets all patients.
+ * Gets all patients or just patients with a particular primary care doctor.
  *
  * Usage: GET /patients
+ *        GET /patients?primCareDrId=1
  */
 $app->get('/patients', function() use ($app) {
     try {
         $dao = new \Prams\Dao();
-        $patients = $dao->getAllPatients();
+        $req = $app->request();
+        $primCareDrId = $req->get('primCareDrId');
+        if ($primCareDrId) {
+            $patients = $dao->getPatientsByPrimaryCareDoctor($primCareDrId);
+        } else {
+            $patients = $dao->getAllPatients();
+        }
+
         if ($patients) {
             $code = 200;
             $message = '';

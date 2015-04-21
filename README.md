@@ -22,4 +22,8 @@ Gets all nurses.
 
 ### GET /api/patients
 
-Gets all patients.
+**Query string params**
+
+* primCareDrId (optional)
+
+Gets all patients or just patients with a particular primary care doctor.

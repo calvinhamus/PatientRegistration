@@ -64,4 +64,16 @@ class Dao {
         $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
         return $rows;
     }
+
+    public function getPatientsByPrimaryCareDoctor($primCareDrId) {
+        $sql = "SELECT p.* FROM Person p
+                WHERE p.PrimCareDrId = :docId
+                ORDER BY p.LastName, p.FirstName";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':docId', $primCareDrId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
 }
