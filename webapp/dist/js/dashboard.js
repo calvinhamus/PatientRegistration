@@ -1,164 +1,75 @@
-  $(document).ready(function () 
+ var url = "http://localhost/slim/"
+  $(document).ready(function ()
 			{ 
-                $('#example1').datepicker()
+               /* $('#example1').datepicker()
 				.on('changeDate', function(ev){
 				 var url = document.URL;
             
-					});
+					});*/
+					getDoctors();
+					getPatients();
 			});
-
-
-/*onload = function() {
-    	var url = document.URL;
-		getProcessingTime();
-		getQueueDepth();
-};*/
-function getFacilities()
-{
-	try{
-
-$.ajax({
-  url: BASE_URL + 'monitor/errors/'+data ,
-  context: document.body
-}).done(function(data) {
-var headers=[ ""], rows={}
-     headers.push("Status");
-   $.each(data.data,function(i,obj)
-                   {
-                    alert(obj.value+":"+obj.text);
-                    var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getDoctorsByFacility(obj.id)'>"+obj.data+"</a></li>"
-                   alert(div_data);
-                   $(div_data).appendTo('#locationDropDown');
-                   });
-});
-
-    }catch(err){
-    			alert(err);
-    }
-}
-function getDoctorsByFacility(data)
-{
-	try{
-
-$.ajax({
-  url: BASE_URL + 'monitor/errors/'+data ,
-  context: document.body
-}).done(function(data) {
-var headers=[ ""], rows={}
-     headers.push("Status");
-   $.each(data.data,function(i,obj)
-                   {
-                    alert(obj.value+":"+obj.text);
-                    var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getNurses()'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
-                   alert(div_data);
-                   $(div_data).appendTo('#doctorDropDown');
-                   });
-});
-
-    }catch(err){
-    			alert(err);
-    }
-}
-function getNurses(data)
- {
- 	try{
-
- $.ajax({
-   url: BASE_URL + 'monitor/errors/'+data ,
-   context: document.body
- }).done(function(data) {
- var headers=[ ""], rows={}
-      headers.push("Status");
-    $.each(data.data,function(i,obj)
-                    {
-                     alert(obj.value+":"+obj.text);
-                     var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='assignNurseToDoc()'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
-                    alert(div_data);
-                    $(div_data).appendTo('#nurseDropDown');
-                    });
- });
-
-     }catch(err){
-     			alert(err);
-     }
- }
-
- function assignNurseToDoc(data)
- {
- var location = document.getElementById('assignLocationDrop').value;
- var doc = document.getElementById('assignDocDrop').value;
- var location = document.getElementById('assignNurseDrop').value;
- 	try{
-
- $.ajax({
-   url: BASE_URL + 'monitor/errors/'+data ,
-   context: document.body
- }).done(function(data) {
- var headers=[ ""], rows={}
-      headers.push("Status");
-    $.each(data.aaData,function(i,obj)
-                    {
-                     alert(obj.value+":"+obj.text);
-                     var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' onclick='getDoctorsByFacility(obj.id)'>"+obj.data+"</a></li>"
-                    alert(div_data);
-                    $(div_data).appendTo('#nurseDropDown');
-                    });
- });
-
-     }catch(err){
-     			alert(err);
-     }
- }
  /****Page 2******/
-
+//DONE
  function getPatients()
   {
-  	try{
+   	try{
 
-  $.ajax({
-    url: BASE_URL + 'monitor/errors/'+data ,
-    context: document.body
-  }).done(function(data) {
-  var headers=[ ""], rows={}
-       headers.push("Status");
-     $.each(data.data,function(i,obj)
-                     {
-                      alert(obj.value+":"+obj.text);
-                      var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1'>"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
-                     alert(div_data);
-                     $(div_data).appendTo('#nurseDropDown');
-                     });
-  });
+     $.ajax({
+       url: url +'patients'
+    //   context: document.body
+     }).done(function(data) {
+     var headers=[ ""], rows={}
+          headers.push("Status");
+          if(data.responseCode == 200)
+          {
+           $.each(data.data.patients,function(i,obj)
+                                 {
+                                 // alert(obj[i].value+":"+obj[i].text);
+                                  var div_data = "<li role='presentation'> <a href='#' tabindex='-1'>"+obj.FirstName+ ' ' + obj.LastName+"</a></li>"
+                                 //alert(div_data);
+                                 $(div_data).appendTo('#patientDropList');
+                                 });
+          }
 
-      }catch(err){
-      			alert(err);
-      }
+     });
+
+         }catch(err){
+         			alert(err);
+         }
   }
-
+//DONE
    function getDoctors()
     {
     	try{
 
     $.ajax({
-      url: BASE_URL + 'monitor/errors/'+data ,
-      context: document.body
+      url: url +'doctors'
+   //   context: document.body
     }).done(function(data) {
     var headers=[ ""], rows={}
          headers.push("Status");
-       $.each(data.data,function(i,obj)
-                       {
-                        alert(obj.value+":"+obj.text);
-                        var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' >"+obj.FirstName+ ' ' + obj.LastName"</a></li>"
-                       alert(div_data);
-                       $(div_data).appendTo('#nurseDropDown');
-                       });
+         if(data.responseCode == 200)
+         {
+          $.each(data.data.doctors,function(i,obj)
+                                {
+                                // alert(obj[i].value+":"+obj[i].text);
+                                 var div_data = "<li role='presentation'> <a href='#' tabindex='-1'>"+obj.FirstName+ ' ' + obj.LastName+"</a></li>"
+                                //alert(div_data);
+                                $(div_data).appendTo('#doctorDropList');
+                                });
+         }
+
     });
 
         }catch(err){
         			alert(err);
         }
     }
-
+    function setDoctor(data)
+    {
+        alert(data);
+    }
    function assignPatientToTime()
     {
      var patient = document.getElementById('patientDrop').value;
@@ -174,8 +85,8 @@ function getNurses(data)
          headers.push("Status");
        $.each(data.aaData,function(i,obj)
                        {
-                        alert(obj.value+":"+obj.text);
-                        var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' >"+obj.data+"</a></li>"
+                       // alert(obj.value+":"+obj.text);
+                        var div_data = "<li role='presentation'><a role='menuitem' tabindex='-1' >"+obj[i].data+"</a></li>"
                        alert(div_data);
                        $(div_data).appendTo('#nurseDropDown');
                        });
@@ -185,3 +96,13 @@ function getNurses(data)
                     alert(err);
         }
     }
+    $(".dropdown-menu > li > a").click(function(){
+    alert('box');
+     // var selText = $(this).text();
+    //  $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+    });
+
+ $('.table > tbody > tr').click(function() {
+ alert('clicked');
+     // row was clicked
+ });
