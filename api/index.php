@@ -209,4 +209,11 @@ $app->post('/appointment', function() use ($app) {
     $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
 });
 
+$app->get('/doctors/:id/available', function($id) use ($app) {
+    $startDate = $app->request->get('startDate');
+    $endDate = $app->request->get('endDate');
+
+    # TODO: implement this
+});
+
 $app->run();
