@@ -126,4 +126,14 @@ class Dao {
         $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
         return $rows;
     }
+
+    public function assignNurseToDoctorAtFacility($nurseId, $doctorId, $facilityId) {
+        $sql = "UPDATE Appointment SET NurseId = :nurseId
+                WHERE DoctorId = :docId AND OrganizationId = :orgId AND AppointmentDateTime > NOW()";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':nurseId', $nurseId, \PDO::PARAM_INT);
+        $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
+        $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
+        $sth->execute();
+    }
 }

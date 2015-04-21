@@ -155,4 +155,30 @@ $app->get('/patients(/:id)', function($id = 0) use ($app) {
     $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
 });
 
+/**
+ * Assigns a nurse to support a doctor at a facility.
+ *
+ * Usage: POST /nurses/assign (params = nurseId, doctorId, facilityId)
+ */
+$app->post('/nurses/assign', function() use ($app) {
+    $nurseId = $app->request->post('nurseId');
+    $doctorId = $app->request->post('doctorId');
+    $facilityId = $app->request->post('facilityId');
+
+    try {
+        $dao = new \Prams\Dao();
+        $dao->assignNurseToDoctorAtFacility($nurseId, $doctorId, $facilityId);
+        $code = 200;
+        $message = '';
+        $data = "$nurseId : $doctorId : $facilityId";
+    } catch (PDOException $e) {
+        $code = 500;
+        $message = $e->getMessage();
+        $data = array();
+    }
+
+    $app->response()->setStatus($code);
+    $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
+});
+
 $app->run();

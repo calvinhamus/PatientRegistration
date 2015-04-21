@@ -43,3 +43,13 @@ Gets all patients or just patients with a particular primary care doctor.
 ### GET /api/patients/:id
 
 Gets the patient with the given id.
+
+### POST /api/nurses/assign
+
+**Post params**
+
+* nurseId (required)
+* doctorId (required)
+* facilityId (required)
+
+Assigns a nurse to support a doctor at a facility.
