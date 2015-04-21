@@ -170,7 +170,7 @@ $app->post('/nurses/assign', function() use ($app) {
         $dao->assignNurseToDoctorAtFacility($nurseId, $doctorId, $facilityId);
         $code = 200;
         $message = '';
-        $data = "$nurseId : $doctorId : $facilityId";
+        $data = array(); # TODO: return list of assigned appointments?
     } catch (PDOException $e) {
         $code = 500;
         $message = $e->getMessage();
