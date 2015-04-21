@@ -53,3 +53,15 @@ Gets the patient with the given id.
 * facilityId (required)
 
 Assigns a nurse to support a doctor at a facility.
+
+### POST /api/appointment
+
+**Post params**
+
+* dateTime (required)
+* patientId (required)
+* nurseId (required)
+* doctorId (required)
+* facilityId (required)
+
+Creates a new appointment.

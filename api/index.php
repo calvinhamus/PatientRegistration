@@ -181,4 +181,32 @@ $app->post('/nurses/assign', function() use ($app) {
     $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
 });
 
+/**
+ * Creates a new appointment.
+ *
+ * USAGE: POST /appointment (params = dateTime, patientId, nurseId, doctorId, facilityId)
+ */
+$app->post('/appointment', function() use ($app) {
+    $dateTime = $app->request->post('dateTime');
+    $patientId = $app->request->post('patientId');
+    $nurseId = $app->request->post('nurseId');
+    $doctorId = $app->request->post('doctorId');
+    $facilityId = $app->request->post('facilityId');
+
+    try {
+        $dao = new \Prams\Dao();
+        $dao->createAppointment($dateTime, $patientId, $nurseId, $doctorId, $facilityId);
+        $code = 200;
+        $message = '';
+        $data = array(); # TODO: return newly created appointment?
+    } catch (PDOException $e) {
+        $code = 500;
+        $message = $e->getMessage();
+        $data = array();
+    }
+
+    $app->response()->setStatus($code);
+    $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
+});
+
 $app->run();
