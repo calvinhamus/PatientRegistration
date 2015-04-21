@@ -27,7 +27,7 @@ $app->get('/doctors', function() use ($app) {
             $message = '';
             $data = array('doctors' => $doctors);
         } else {
-            $code = 404;
+            $code = 222;
             $message = 'No doctors found.';
             $data = array();
         }
@@ -55,7 +55,7 @@ $app->get('/facilities', function() use ($app) {
             $message = '';
             $data = array('facilities' => $facilities);
         } else {
-            $code = 404;
+            $code = 222;
             $message = 'No facilities found.';
             $data = array();
         }
@@ -83,7 +83,7 @@ $app->get('/nurses', function() use ($app) {
             $message = '';
             $data = array('nurses' => $nurses);
         } else {
-            $code = 404;
+            $code = 222;
             $message = 'No nurses found.';
             $data = array();
         }
@@ -119,7 +119,7 @@ $app->get('/patients', function() use ($app) {
             $message = '';
             $data = array('patients' => $patients);
         } else {
-            $code = 404;
+            $code = 222;
             $message = 'No patients found.';
             $data = array();
         }
