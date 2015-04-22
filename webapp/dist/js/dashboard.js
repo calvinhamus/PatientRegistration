@@ -13,6 +13,7 @@ var patient = 0;
              //  getFacilities();
                getNurses();
                getPatients();
+			   getDoctorsByFacility();
 			});
 
 
@@ -49,7 +50,7 @@ function getFacilities()
             			alert(err);
             }
 }
-function getDoctorsByFacility($i)
+function getDoctorsByFacility()
 {
 facility = $i;
    // var selectBox = document.getElementById("assignLocationDrop");
@@ -57,7 +58,7 @@ facility = $i;
 		try{
 
             $.ajax({
-              url: url +'doctors?facilityId='+$i
+              url: url +'doctors'
            //   context: document.body
             }).done(function(data) {
             var headers=[ ""], rows={}
