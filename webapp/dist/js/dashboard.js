@@ -1,4 +1,4 @@
-var url = "http://web/~plee/PatientRegistration/";
+var url = "http://web/~plee/PatientRegistration/api/";
 //var url = "http://localhost/slim/";
 var nurse = 0;
 var doc = 0;
