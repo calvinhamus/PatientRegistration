@@ -1,5 +1,5 @@
-//var url = "http://web/~plee/PatientRegistration";
-var url = "http://localhost/slim/";
+var url = "http://web/~plee/PatientRegistration/";
+//var url = "http://localhost/slim/";
 var nurse = 0;
 var doc = 0;
 var facility = 0;
@@ -10,7 +10,7 @@ var patient = 0;
 			jQuery('#datetimepicker3').datetimepicker();
 
                // var selectBox = document.getElementById("datetimepicker3");
-               getFacilities();
+             //  getFacilities();
                getNurses();
                getPatients();
 			});
@@ -161,7 +161,7 @@ function setNurse(data)
   function createAppointment()
 {
 var time = document.getElementById("datetimepicker3").value;
-    if(nurse == 0|| doc == 0 || facility == 0 || patient == 0 || time == "" )
+    if(nurse == 0|| doc == 0 || patient == 0 || time == "" )
      {
         alert("Please select all options");
      }else
@@ -170,7 +170,7 @@ var time = document.getElementById("datetimepicker3").value;
                    $.ajax({
                    type:"POST",
                      url: url +'appointment',
-                     data: 'dateTime=' + time +'&patientId='+ patient + '&nurseId=' + nurse + '&doctorId=' + doc + '&facilityId=' + facility
+                     data: 'dateTime=' + time +'&patientId='+ patient + '&nurseId=' + nurse + '&doctorId=' + doc 
                   //   context: document.body
                    }).done(function(data) {
                    var headers=[ ""], rows={}
@@ -178,14 +178,8 @@ var time = document.getElementById("datetimepicker3").value;
                         if(data.responseCode == 200)
                         {
                         alert('Success');
-                         /*$.each(data.data.nurses,function(i,obj)
-                                               {
-                                               // alert(obj[i].value+":"+obj[i].text);
-                                                var div_data = "<li role='presentation'> <a role='menuitem' tabindex='-1' onclick='setNurse("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+ "</a></li>"
-                                               //alert(div_data);
-                                               $(div_data).appendTo('#nurseDropDown');
-                                               });*/
-                        }else if(data.responseCode == 233){
+                     
+                        }else if(data.responseCode == 224){
                              alert('Time slot taken');
                         }
                         else
