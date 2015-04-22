@@ -29,9 +29,10 @@ function getFacilities()
               $.each(data.data.facilities,function(i,obj)
                                     {
                                     // alert(obj[i].value+":"+obj[i].text);
-                                     var div_data = "<li role='presentation'> <a href='#' tabindex='-1' onclick='getDoctorsByFacility("+obj.OrganizationId+")'>"+obj.OrganizationName+ "</a></li>"
+                                    //var div_data = "<li role='presentation'> <a href='#' tabindex='-1' onclick='getDoctorsByFacility("+obj.OrganizationId+")'>"+obj.OrganizationName+ "</a></li>"
+                                     var div_data = "<option value='"+obj.OrganizationId+"'>"+obj.OrganizationName+"</option>";
                                     //alert(div_data);
-                                    $(div_data).appendTo('#locationDropDown');
+                                    $(div_data).appendTo('#assignLocationDrop');
                                     });
              }
 
@@ -41,13 +42,15 @@ function getFacilities()
             			alert(err);
             }
 }
-function getDoctorsByFacility(data)
+function getDoctorsByFacility($i)
 {
-facility = data;
+facility = $i;
+   // var selectBox = document.getElementById("assignLocationDrop");
+  //  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 		try{
 
             $.ajax({
-              url: url +'doctors?facilityId='+data
+              url: url +'doctors?facilityId='+$i
            //   context: document.body
             }).done(function(data) {
             var headers=[ ""], rows={}
@@ -57,12 +60,15 @@ facility = data;
                   $.each(data.data.doctors,function(i,obj)
                                         {
                                         // alert(obj[i].value+":"+obj[i].text);
-                                          var div_data = "<li role='presentation'> <a href='#' tabindex='-1' onclick='setDoc("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+"</a></li>"
+                                        //  var div_data = "<li role='presentation'> <a href='#' tabindex='-1' onclick='setDoc("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+"</a></li>"
+                                         var div_data = "<option value='"+obj.PersonId+"'>"+obj.FirstName+ ' ' + obj.LastName+"</option>";
                                         //alert(div_data);
-                                        $(div_data).appendTo('#doctorDropDown');
+                                        $(div_data).appendTo('#assignDocDrop');
                                         });
                  }else{
-                    alert('No Doctors found at this facility');
+                      var div_data = "<option>No Doctors Found at that location</option>";
+                                    $(div_data).appendTo('#assignDocDrop');
+                                 //alert('No nurses found');
                  }
 
             });
@@ -89,12 +95,16 @@ function getNurses()
               {
                $.each(data.data.nurses,function(i,obj)
                                      {
+
                                      // alert(obj[i].value+":"+obj[i].text);
-                                      var div_data = "<li role='presentation'> <a role='menuitem' tabindex='-1' onclick='setNurse("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+ "</a></li>"
+                                      var div_data = "<option value='"+obj.PersonId+"'>"+obj.FirstName+ ' ' + obj.LastName+ "</option>";
+                                     // var div_data = "<li role='presentation'> <a role='menuitem' tabindex='-1' onclick='setNurse("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+ "</a></li>"
                                      //alert(div_data);
-                                     $(div_data).appendTo('#nurseDropDown');
+                                     $(div_data).appendTo('#assignNurseDrop');
                                      });
               }else {
+                var div_data = "<option>No Nurses Found at that location</option>";
+                 $(div_data).appendTo('#assignNurseDrop');
               alert('No nurses found');
               }
 
@@ -118,22 +128,25 @@ function setNurse(data)
   try{
 
            $.ajax({
-             url: url +'nurses'
+           type:"POST",
+             url: url +'nurses/assign',
+             data: 'nurseId=' + nurse +'&doctorId='+ doc + '&facilityId=' + facility
           //   context: document.body
            }).done(function(data) {
            var headers=[ ""], rows={}
                 headers.push("Status");
                 if(data.responseCode == 200)
                 {
-                 $.each(data.data.nurses,function(i,obj)
+                alert('Success');
+                 /*$.each(data.data.nurses,function(i,obj)
                                        {
                                        // alert(obj[i].value+":"+obj[i].text);
                                         var div_data = "<li role='presentation'> <a role='menuitem' tabindex='-1' onclick='setNurse("+obj.PersonId+")'>"+obj.FirstName+ ' ' + obj.LastName+ "</a></li>"
                                        //alert(div_data);
                                        $(div_data).appendTo('#nurseDropDown');
-                                       });
+                                       });*/
                 }else {
-                alert('No nurses found');
+                alert('Oh no failure');
                 }
 
            });
