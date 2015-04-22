@@ -2,6 +2,8 @@
 require 'vendor/autoload.php';
 require 'config.php';
 
+date_default_timezone_set('America/Boise');
+
 $app = new \Slim\Slim();
 $app->response()->headers->set('Content-Type', 'application/json');
 
