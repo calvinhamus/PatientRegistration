@@ -62,6 +62,5 @@ Assigns a nurse to support a doctor at a facility.
 * patientId (required)
 * nurseId (required)
 * doctorId (required)
-* facilityId (required)
 
 Creates a new appointment.

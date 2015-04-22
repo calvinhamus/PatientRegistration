@@ -149,4 +149,34 @@ class Dao {
         $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
         $sth->execute();
     }
+
+    public function checkDoctorAvailability($dateTime, $doctorId) {
+        // check if doctor has appointment already scheduled for this date/time
+        $sql = "SELECT a.* FROM Appointment a
+                WHERE AppointmentDateTime = :dateTime AND DoctorId = :docId";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':dateTime', $dateTime, \PDO::PARAM_STR);
+        $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
+        $sth->execute();
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        if (count($rows) > 0) {
+            return 0;
+        }
+
+        $dayOfWeek = strtoupper(date('D', strtotime($dateTime)));
+        $hourOfDay = strtoupper(date('G', strtotime($dateTime)));
+
+        // check if doctor is available on this day of week and time
+        $sql = "SELECT da.* FROM DoctorAvailability da
+                WHERE da.DayOfWeek = :dayOfWeek AND da.DoctorId = :docId
+                  AND da.FromTIme <= :hourOfDay AND da.ToTime >= :hourOfDay";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':dayOfWeek', $dayOfWeek, \PDO::PARAM_STR);
+        $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
+        $sth->bindParam(':hourOfDay', $hourOfDay, \PDO::PARAM_INT);
+        $sth->execute();
+
+        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
+        return $rows;
+    }
 }
