@@ -13,10 +13,10 @@ $app->response()->headers->set('Content-Type', 'application/json');
  *        GET /doctors?facilityId=1
  */
 $app->get('/doctors(/:id)', function($id = 0) use ($app) {
+    $facilityId = $app->request->get('facilityId');
+
     try {
         $dao = new \Prams\Dao();
-        $req = $app->request();
-        $facilityId = $req->get('facilityId');
 
         if ($id > 0) {
             $doctors = $dao->getDoctorById($id);
@@ -123,10 +123,10 @@ $app->get('/nurses(/:id)', function($id = 0) use ($app) {
  *        GET /patients?primCareDrId=1
  */
 $app->get('/patients(/:id)', function($id = 0) use ($app) {
+    $primCareDrId = $app->request->get('primCareDrId');
+
     try {
         $dao = new \Prams\Dao();
-        $req = $app->request();
-        $primCareDrId = $req->get('primCareDrId');
 
         if ($id > 0) {
             $patients = $dao->getPatientById($id);
@@ -207,13 +207,6 @@ $app->post('/appointment', function() use ($app) {
 
     $app->response()->setStatus($code);
     $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
-});
-
-$app->get('/doctors/:id/available', function($id) use ($app) {
-    $startDate = $app->request->get('startDate');
-    $endDate = $app->request->get('endDate');
-
-    # TODO: implement this
 });
 
 $app->run();
