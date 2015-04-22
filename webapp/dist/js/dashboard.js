@@ -52,7 +52,7 @@ function getFacilities()
 }
 function getDoctorsByFacility()
 {
-facility = $i;
+//facility = $i;
    // var selectBox = document.getElementById("assignLocationDrop");
   //  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
 		try{
