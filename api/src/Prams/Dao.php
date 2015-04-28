@@ -16,8 +16,7 @@ class Dao {
         $sth = $this->_dbh->prepare($sql);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getDoctorById($personId) {
@@ -29,8 +28,7 @@ class Dao {
         $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getDoctorsByFacilityId($facilityId) {
@@ -43,8 +41,7 @@ class Dao {
         $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAllFacilities() {
@@ -53,8 +50,7 @@ class Dao {
         $sth = $this->_dbh->prepare($sql);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getFacilityById($facilityId) {
@@ -65,8 +61,7 @@ class Dao {
         $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAllNurses() {
@@ -76,8 +71,7 @@ class Dao {
         $sth = $this->_dbh->prepare($sql);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getNurseById($personId) {
@@ -89,8 +83,7 @@ class Dao {
         $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAllPatients() {
@@ -99,8 +92,7 @@ class Dao {
         $sth = $this->_dbh->prepare($sql);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getPatientById($personId) {
@@ -111,8 +103,7 @@ class Dao {
         $sth->bindParam(':id', $personId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getPatientsByPrimaryCareDoctor($primCareDrId) {
@@ -123,8 +114,7 @@ class Dao {
         $sth->bindParam(':docId', $primCareDrId, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function assignNurseToDoctorAtFacility($nurseId, $doctorId, $facilityId) {
@@ -174,7 +164,6 @@ class Dao {
         $sth->bindParam(':hourOfDay', $hourOfDay, \PDO::PARAM_INT);
         $sth->execute();
 
-        $rows = $sth->fetchAll(\PDO::FETCH_OBJ);
-        return $rows;
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
 }
