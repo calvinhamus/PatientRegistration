@@ -138,10 +138,9 @@ class Dao {
     }
 
     public function createAppointment($dateTime, $patientId, $nurseId, $doctorId, $facilityId) {
-        $sql = "INSERT INTO Appointment (AppointmentId, AppointmentDateTime, BodyTemperature, Weight, Height, SystolicBloodPressure, DiastolicBloodPressure, PersonId, OrganizationId, NurseId, DoctorId)
-                VALUES (:apptId, :dateTime, 0, 0, 0, 0, 0, :patientId, :orgId, :nurseId, :docId)";
+        $sql = "INSERT INTO Appointment (AppointmentDateTime, BodyTemperature, Weight, Height, SystolicBloodPressure, DiastolicBloodPressure, PersonId, OrganizationId, NurseId, DoctorId)
+                VALUES (:dateTime, 0, 0, 0, 0, 0, :patientId, :orgId, :nurseId, :docId)";
         $sth = $this->_dbh->prepare($sql);
-        $sth->bindParam(':apptId', time(), \PDO::PARAM_INT); # TODO: this is a hack. AppointmentId should be auto-increment
         $sth->bindParam(':dateTime', $dateTime, \PDO::PARAM_STR);
         $sth->bindParam(':patientId', $patientId, \PDO::PARAM_INT);
         $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
