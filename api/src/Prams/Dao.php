@@ -137,14 +137,13 @@ class Dao {
         $sth->execute();
     }
 
-    public function createAppointment($dateTime, $patientId, $nurseId, $doctorId, $facilityId) {
-        $sql = "INSERT INTO Appointment (AppointmentDateTime, BodyTemperature, Weight, Height, SystolicBloodPressure, DiastolicBloodPressure, PersonId, OrganizationId, NurseId, DoctorId)
-                VALUES (:dateTime, 0, 0, 0, 0, 0, :patientId, :orgId, :nurseId, :docId)";
+    public function createAppointment($dateTime, $patientId, $doctorId, $facilityId) {
+        $sql = "INSERT INTO Appointment (AppointmentDateTime, BodyTemperature, Weight, Height, SystolicBloodPressure, DiastolicBloodPressure, PersonId, OrganizationId, DoctorId)
+                VALUES (:dateTime, 0, 0, 0, 0, 0, :patientId, :orgId, :docId)";
         $sth = $this->_dbh->prepare($sql);
         $sth->bindParam(':dateTime', $dateTime, \PDO::PARAM_STR);
         $sth->bindParam(':patientId', $patientId, \PDO::PARAM_INT);
         $sth->bindParam(':orgId', $facilityId, \PDO::PARAM_INT);
-        $sth->bindParam(':nurseId', $nurseId, \PDO::PARAM_INT);
         $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
         $sth->execute();
     }

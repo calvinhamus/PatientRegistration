@@ -60,7 +60,6 @@ Assigns a nurse to support a doctor at a facility.
 
 * dateTime (required)
 * patientId (required)
-* nurseId (required)
 * doctorId (required)
 
 Creates a new appointment.

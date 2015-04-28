@@ -186,12 +186,11 @@ $app->post('/nurses/assign', function() use ($app) {
 /**
  * Creates a new appointment.
  *
- * USAGE: POST /appointment (params = dateTime, patientId, nurseId, doctorId)
+ * Usage: POST /appointment (params = dateTime, patientId, doctorId)
  */
 $app->post('/appointment', function() use ($app) {
     $dateTime = $app->request->post('dateTime');
     $patientId = $app->request->post('patientId');
-    $nurseId = $app->request->post('nurseId');
     $doctorId = $app->request->post('doctorId');
 
     try {
@@ -202,8 +201,8 @@ $app->post('/appointment', function() use ($app) {
             $message = 'Doctor is not available at that date and time.';
             $data = array();
         } else {
-            $facilityId = $availability[0]->OrganizationId; # TODO
-            $dao->createAppointment($dateTime, $patientId, $nurseId, $doctorId, $facilityId);
+            $facilityId = $availability[0]->OrganizationId;
+            $dao->createAppointment($dateTime, $patientId, $doctorId, $facilityId);
             $code = 200;
             $message = '';
             $data = array(); # TODO: return newly created appointment?
