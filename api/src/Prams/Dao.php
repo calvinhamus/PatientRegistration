@@ -166,4 +166,29 @@ class Dao {
 
         return $sth->fetchAll(\PDO::FETCH_OBJ);
     }
+
+    public function getDoctorAvailabilityByDate($date, $doctorId) {
+        $dayOfWeek = strtoupper(date('D', strtotime($date)));
+
+        // check if/when doctor is available on this date
+        $sql = "SELECT da.* FROM DoctorAvailability da
+                WHERE da.DayOfWeek = :dayOfWeek AND da.DoctorId = :docId";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':dayOfWeek', $dayOfWeek, \PDO::PARAM_STR);
+        $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function getDoctorAppointmentTimesByDate($date, $doctorId) {
+        $sql = "SELECT AppointmentDateTime FROM Appointment
+                WHERE DoctorId = :docId AND DATE(AppointmentDateTime) = :selectedDate ORDER BY AppointmentDateTime";
+        $sth = $this->_dbh->prepare($sql);
+        $sth->bindParam(':selectedDate', $date, \PDO::PARAM_STR);
+        $sth->bindParam(':docId', $doctorId, \PDO::PARAM_INT);
+        $sth->execute();
+
+        return $sth->fetchAll(\PDO::FETCH_OBJ);
+    }
 }

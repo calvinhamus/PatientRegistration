@@ -63,3 +63,7 @@ Assigns a nurse to support a doctor at a facility.
 * doctorId (required)
 
 Creates a new appointment.
+
+### GET /api/doctors/:id/available/:date
+
+Gets the available appointment times and locations for the doctor with the given id on the given date (YYYY-mm-dd)

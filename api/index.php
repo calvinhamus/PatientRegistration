@@ -217,4 +217,34 @@ $app->post('/appointment', function() use ($app) {
     $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
 });
 
+/**
+ * Gets a doctor's available appointment times on a particular date.
+ *
+ * Usage: GET /doctors/1/available/2015-05-04
+ */
+$app->get('/doctors/:id/available/:date', function($id, $date) use ($app) {
+    try {
+        $dao = new \Prams\Dao();
+        $availability = $dao->getDoctorAvailabilityByDate($date, $id);
+        if (!$availability) {
+            $code = 224;
+            $message = 'Doctor is not available on that date.';
+            $data = array();
+        } else {
+            $apptTimes = $dao->getDoctorAppointmentTimesByDate($date, $id);
+            # TODO: convert appointment times to hours (0 - 23) and remove corresponding elements from $availability
+            $code = 200;
+            $message = '';
+            $data = array(); # TODO: build array of available times/locations
+        }
+    } catch (PDOException $e) {
+        $code = 500;
+        $message = $e->getMessage();
+        $data = array();
+    }
+
+    $app->response()->setStatus($code);
+    $app->response()->setBody(\Prams\Util::buildJsonResponse($code, $message, $data));
+});
+
 $app->run();
