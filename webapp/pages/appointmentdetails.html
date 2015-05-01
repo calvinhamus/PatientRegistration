@@ -71,18 +71,26 @@
                <!-- <h5>Faclilities</h5>
                 <select class="form-control" id="assignLocationDrop" onchange="getDoctorsByFacility(value)">
                     <option>Select</option>
-                </select>-->
+                </select>
                 <h5>Nurses</h5>
                 <select class="form-control" id="assignNurseDrop" onchange="setNurse(value)">
                     <option>Select</option>
-                </select>
+                </select>-->
                 <h5>Doctors</h5>
                 <select class="form-control" id="assignDocDrop" onchange="setDoc(value)">
                     <option>Select</option>
                 </select>
-                <h5>Choose Appointment Time</h5>
+                <h5>Choose Appointment Date</h5>
                 <input id="datetimepicker3" type="text" ><br/>
                 <br/>
+                <button class="btn " type="button" onclick="getAvailableTimes()" aria-expanded="true">
+                    Get Availalbe Times
+
+                </button>
+                <h5>Available Times For Doctor</h5>
+                <select class="form-control" id="availableTimesDrop" onchange="setTime(value)">
+                    <option>Select</option>
+                </select>
                 <button class="btn btn-danger" type="button" onclick="createAppointment()" aria-expanded="true">
                     Create Appointment
 
