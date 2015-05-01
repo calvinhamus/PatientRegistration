@@ -172,7 +172,7 @@ $app->post('/nurses/assign', function() use ($app) {
         $dao->assignNurseToDoctorAtFacility($nurseId, $doctorId, $facilityId);
         $code = 200;
         $message = '';
-        $data = array(); # TODO: return list of assigned appointments?
+        $data = array();
     } catch (PDOException $e) {
         $code = 500;
         $message = $e->getMessage();
@@ -205,7 +205,7 @@ $app->post('/appointment', function() use ($app) {
             $dao->createAppointment($dateTime, $patientId, $doctorId, $facilityId);
             $code = 200;
             $message = '';
-            $data = array(); # TODO: return newly created appointment?
+            $data = array();
         }
     } catch (PDOException $e) {
         $code = 500;
