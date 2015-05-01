@@ -232,10 +232,30 @@ $app->get('/doctors/:id/available/:date', function($id, $date) use ($app) {
             $data = array();
         } else {
             $apptTimes = $dao->getDoctorAppointmentTimesByDate($date, $id);
-            # TODO: convert appointment times to hours (0 - 23) and remove corresponding elements from $availability
+
+            $taken = array();
+            foreach ($apptTimes as $apptTime) {
+                $taken[] = date('G', strtotime($apptTime->AppointmentDateTime));;
+            }
+
+            $availableSlots = array();
+            foreach ($availability as $window) {
+                foreach (range($window->FromTIme, $window->ToTime - 1) as $hourOfDay) {
+                    if (in_array($hourOfDay, $taken)) {
+                        continue;
+                    }
+
+                    $dateTime = $date . ' ' . str_pad($hourOfDay, 2, '0', STR_PAD_LEFT) . ':00:00';
+                    $availableSlots[] = array(
+                        'AppointmentDateTime' => $dateTime,
+                        'OrganizationId' => $window->OrganizationId
+                    );
+                }
+            }
+
             $code = 200;
             $message = '';
-            $data = array(); # TODO: build array of available times/locations
+            $data = array('AvailableSlots' => $availableSlots);
         }
     } catch (PDOException $e) {
         $code = 500;
